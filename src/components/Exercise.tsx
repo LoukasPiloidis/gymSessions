@@ -45,7 +45,7 @@ const Wrapper = styled.div<{ isDone?: boolean; hasSet?: boolean }>`
   `}
 `;
 
-const Sets = styled.span`
+export const Sets = styled.span`
   width: 32px;
   height: 32px;
   display: flex;

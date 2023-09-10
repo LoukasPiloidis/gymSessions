@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Sets } from "./StyledComponents";
-import Exercise from "./Exercise";
+import Exercise, { Sets } from "./Exercise";
 
 type Props = {
   exercises?: {
