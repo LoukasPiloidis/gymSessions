@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import Session from "../components/Session";
+import Exercise from "../components/Exercise";
 import Superset from "../components/Superset";
 import { SessionType } from "../types";
 import { getDay, getRoutine } from "../utils";
@@ -38,18 +38,15 @@ const Basics = () => {
         <Subtitle>{day}</Subtitle>
         <span onClick={() => handleClick("next")}>next</span>
       </SubtitleWrapper>
-      <TableTitle>
-        <span>Sets</span>
-        <span>Exercise</span>
-        <span>Reps</span>
-      </TableTitle>
-      {routine.session.map((exercise) => {
-        const { set, reps, name, superset, exercises } = exercise;
-        if (!superset) {
-          return <Session set={set} name={name} reps={reps} />;
-        }
-        return <Superset exercises={exercises} set={set} />;
-      })}
+      <ExerciseWrapper>
+        {routine.session.map((exercise) => {
+          const { set, reps, name, superset, exercises } = exercise;
+          if (!superset) {
+            return <Exercise set={set} name={name} reps={reps} />;
+          }
+          return <Superset exercises={exercises} set={set} />;
+        })}
+      </ExerciseWrapper>
     </div>
   );
 };
@@ -74,8 +71,8 @@ const Subtitle = styled.h4`
   justify-content: center;
 `;
 
-const TableTitle = styled.div`
+const ExerciseWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
-  padding: 12px;
+  flex-direction: column;
+  gap: 16px;
 `;

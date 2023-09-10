@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import Session from "../components/Session";
+import Exercise from "../components/Exercise";
 import Superset from "../components/Superset";
 import { SessionType } from "../types";
 import { getDay, getRoutine } from "../utils";
@@ -36,7 +36,7 @@ const Pro = () => {
       {routine.session.map((exercise) => {
         const { set, reps, name, superset, exercises } = exercise;
         if (!superset) {
-          return <Session set={set} name={name} reps={reps} />;
+          return <Exercise set={set} name={name} reps={reps} />;
         }
         return <Superset exercises={exercises} set={set} />;
       })}
