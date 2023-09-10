@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
-import Exercise, { Sets } from "./Exercise";
+import Exercise from "./Exercise";
+import Sets from "./Sets";
 
 type Props = {
   exercises?: {
@@ -16,7 +17,7 @@ const Superset: React.FC<Props> = ({ exercises, set }) => {
 
   return (
     <Wrapper>
-      <Sets onClick={() => setIsDone((prev) => !prev)}>{set}</Sets>
+      <Sets setIsDone={setIsDone} set={set} isDone={isDone} isSuperset />
       <StyledWrapper>
         {exercises?.map(({ name, reps }) => (
           <Exercise name={name} reps={reps} isDone={isDone} />

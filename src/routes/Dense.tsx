@@ -4,6 +4,7 @@ import Superset from "../components/Superset";
 import { SessionType } from "../types";
 import { getDay, getRoutine } from "../utils";
 import { useState } from "react";
+import { palette } from "../palette";
 
 const Dense = () => {
   const [dayToday, setDayToday] = useState(new Date().getDay());
@@ -18,10 +19,10 @@ const Dense = () => {
     return setDayToday((prev) => prev + 1);
   };
 
-  if (!routine) return <div>Time to rest</div>;
+  if (!routine) return <MainWrapper>Time to rest</MainWrapper>;
 
   return (
-    <div>
+    <MainWrapper>
       <Title>{routine.name}</Title>
       <SubtitleWrapper>
         <span onClick={() => handleClick("prev")}>prev</span>
@@ -40,11 +41,15 @@ const Dense = () => {
         }
         return <Superset exercises={exercises} set={set} />;
       })}
-    </div>
+    </MainWrapper>
   );
 };
 
 export default Dense;
+
+const MainWrapper = styled.div`
+  color: ${palette.text};
+`;
 
 const Title = styled.h1`
   display: flex;

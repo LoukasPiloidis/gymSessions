@@ -4,6 +4,7 @@ import Superset from "../components/Superset";
 import { SessionType } from "../types";
 import { getDay, getRoutine } from "../utils";
 import { useState } from "react";
+import { palette } from "../palette";
 
 const Basics = () => {
   const [dayToday, setDayToday] = useState(new Date().getDay());
@@ -20,18 +21,18 @@ const Basics = () => {
 
   if (!routine)
     return (
-      <div>
+      <MainWrapper>
         <SubtitleWrapper>
           <span onClick={() => handleClick("prev")}>prev</span>
           <Subtitle>{day}</Subtitle>
           <span onClick={() => handleClick("next")}>next</span>
         </SubtitleWrapper>
         Time to rest
-      </div>
+      </MainWrapper>
     );
 
   return (
-    <div>
+    <MainWrapper>
       <Title>{routine.name}</Title>
       <SubtitleWrapper>
         <span onClick={() => handleClick("prev")}>prev</span>
@@ -41,17 +42,22 @@ const Basics = () => {
       <ExerciseWrapper>
         {routine.session.map((exercise) => {
           const { set, reps, name, superset, exercises } = exercise;
+
           if (!superset) {
             return <Exercise set={set} name={name} reps={reps} />;
           }
           return <Superset exercises={exercises} set={set} />;
         })}
       </ExerciseWrapper>
-    </div>
+    </MainWrapper>
   );
 };
 
 export default Basics;
+
+const MainWrapper = styled.div`
+  color: ${palette.text};
+`;
 
 const Title = styled.h1`
   display: flex;

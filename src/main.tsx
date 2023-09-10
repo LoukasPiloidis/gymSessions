@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Basics from "./routes/Basics.tsx";
 import Dense from "./routes/Dense.tsx";
 import Pro from "./routes/Pro.tsx";
+import "./styles.css";
 
 const router = createBrowserRouter([
   {

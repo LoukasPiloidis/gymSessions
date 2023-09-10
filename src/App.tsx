@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
+import { palette } from "./palette";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 48px;
+  color: ${palette.text};
 `;
 
 const StyledButton = styled.button`
@@ -35,5 +37,4 @@ const StyledButton = styled.button`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: black;
 `;

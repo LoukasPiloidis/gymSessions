@@ -6,12 +6,12 @@ export default {
     {
       superset: true,
       set: 3,
-      exercices: [
-        { name: "Slant Calf Stretch", set: 2, reps: "1 min" },
-        { name: "Slant J Curl", set: 2, reps: 20 },
-        { name: "Incline Pigeon Pulse", set: 2, reps: 20 },
-        { name: "Resisted Butterfly", set: 2, reps: 20 },
-        { name: "Couch Stretch", set: 2, reps: "1 min" },
+      exercises: [
+        { name: "Slant Calf Stretch", reps: "1 min" },
+        { name: "Slant J Curl", reps: 20 },
+        { name: "Incline Pigeon Pulse", reps: 20 },
+        { name: "Resisted Butterfly", reps: 20 },
+        { name: "Couch Stretch", reps: "1 min" },
       ],
     },
   ],

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { palette } from "../palette";
+import Sets from "./Sets";
 
 type Props = {
   set?: number;
@@ -18,7 +20,7 @@ const Exercise: React.FC<Props> = ({
 
   return (
     <Wrapper isDone={isSupersetDone ?? isDone} hasSet={!!set}>
-      {set && <Sets onClick={() => setIsDone((prev) => !prev)}>{set}</Sets>}
+      {set && <Sets setIsDone={setIsDone} set={set} isDone={isDone} />}
       <Name>{name}</Name>
       <Reps>{reps}</Reps>
     </Wrapper>
@@ -35,25 +37,16 @@ const Wrapper = styled.div<{ isDone?: boolean; hasSet?: boolean }>`
   column-gap: 8px;
   margin-bottom: 4px;
   font-size: 18px;
-  border: 1px solid black;
+  border: 1px solid ${palette.text};
   border-radius: 8px;
+  background-color: ${palette.background};
+  color: ${palette.text};
 
   ${({ isDone }) =>
     isDone &&
     `
-    background-color: blue;
+    opacity: 0.5;
   `}
-`;
-
-export const Sets = styled.span`
-  width: 32px;
-  height: 32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  font-size: 20px;
-  background-color: gray;
 `;
 
 const Name = styled.span`
