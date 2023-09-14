@@ -1,3 +1,3 @@
 export default {
-  server: "https://gym-sessions-backend.vercel.app/",
+  server: "https://gym-sessions-backend.vercel.app",
 };
