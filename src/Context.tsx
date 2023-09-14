@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SetStateAction, createContext, useState } from "react";
+import { SetStateAction, createContext, useEffect, useState } from "react";
 import config from "./config";
 
 const { server } = config;
@@ -29,10 +29,25 @@ export const Context = createContext<ContextShape>({
   },
 });
 
-const res = await axios.get(`${server}/24c741aa-532b-11ee-be56-0242ac120002`);
-
 const ContextProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
-  const [data, setData] = useState<Data>(res.data as Data);
+  const [data, setData] = useState<Data>({
+    id: "24c741aa-532b-11ee-be56-0242ac120002",
+    firstName: "Loukas",
+    lastName: "Piloidis",
+    username: "piloten",
+    currentProgram: "Basics",
+    startDate: new Date(),
+  });
+
+  useEffect(() => {
+    const getData = async () => {
+      const { data } = await axios.get<Data>(
+        `${server}/24c741aa-532b-11ee-be56-0242ac120002`
+      );
+      setData(data);
+    };
+    getData();
+  }, []);
 
   return (
     <Context.Provider value={{ data, setData }}>{children}</Context.Provider>
