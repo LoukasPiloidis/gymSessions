@@ -1,8 +1,22 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import { palette } from "./palette";
+import { useContext, useEffect } from "react";
+import { Context } from "./Context";
 
 const App = () => {
+  const {
+    data: { currentProgram },
+  } = useContext(Context);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (currentProgram) {
+      navigate(`/${currentProgram}`);
+    }
+  }, [currentProgram, navigate]);
+
   return (
     <Wrapper>
       <StyledButton>

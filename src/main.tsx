@@ -6,6 +6,7 @@ import Basics from "./routes/Basics.tsx";
 import Dense from "./routes/Dense.tsx";
 import Pro from "./routes/Pro.tsx";
 import "./styles.css";
+import Context from "./Context.tsx";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Context>
+      <RouterProvider router={router} />
+    </Context>
   </React.StrictMode>
 );

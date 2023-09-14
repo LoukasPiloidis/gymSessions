@@ -1,4 +1,4 @@
-type ExerciseType = {
+export type ExerciseType = {
   name: string;
   reps: string | number;
   set?: number;

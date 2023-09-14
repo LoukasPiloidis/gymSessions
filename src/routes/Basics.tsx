@@ -2,15 +2,27 @@ import { styled } from "styled-components";
 import Exercise from "../components/Exercise";
 import Superset from "../components/Superset";
 import { SessionType } from "../types";
-import { getDay, getRoutine } from "../utils";
-import { useState } from "react";
+import { getDay } from "../utils";
+import { useEffect, useState } from "react";
 import { palette } from "../palette";
+import axios from "axios";
+import config from "../config";
 
-const Basics = () => {
+const { server } = config;
+
+const Basics: React.FC = () => {
   const [dayToday, setDayToday] = useState(new Date().getDay());
+  const [data, setData] = useState<SessionType | undefined>();
+  const parsedToday = getDay(dayToday);
 
-  const day = getDay(dayToday);
-  const routine = getRoutine(dayToday, "basics") as SessionType;
+  useEffect(() => {
+    const getData = async (day: string) => {
+      const { data } = await axios.get<SessionType>(`${server}/Basics/${day}`);
+      console.log(parsedToday);
+      setData(data);
+    };
+    getData(parsedToday);
+  }, [dayToday, parsedToday]);
 
   const handleClick = (type: "prev" | "next") => {
     if (type === "prev") {
@@ -19,12 +31,12 @@ const Basics = () => {
     return setDayToday((prev) => prev + 1);
   };
 
-  if (!routine)
+  if (!data?.session)
     return (
       <MainWrapper>
         <SubtitleWrapper>
           <span onClick={() => handleClick("prev")}>prev</span>
-          <Subtitle>{day}</Subtitle>
+          <Subtitle>{parsedToday}</Subtitle>
           <span onClick={() => handleClick("next")}>next</span>
         </SubtitleWrapper>
         Time to rest
@@ -33,14 +45,14 @@ const Basics = () => {
 
   return (
     <MainWrapper>
-      <Title>{routine.name}</Title>
+      <Title>{data.name}</Title>
       <SubtitleWrapper>
         <span onClick={() => handleClick("prev")}>prev</span>
-        <Subtitle>{day}</Subtitle>
+        <Subtitle>{parsedToday}</Subtitle>
         <span onClick={() => handleClick("next")}>next</span>
       </SubtitleWrapper>
       <ExerciseWrapper>
-        {routine.session.map((exercise) => {
+        {data.session.map((exercise) => {
           const { set, reps, name, superset, exercises } = exercise;
 
           if (!superset) {
