@@ -9,4 +9,5 @@ export type ExerciseType = {
 export type SessionType = {
   name: string;
   session: ExerciseType[];
+  activeWeeks: number;
 };

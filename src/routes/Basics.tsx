@@ -51,6 +51,7 @@ const Basics: React.FC = () => {
         <Subtitle>{parsedToday}</Subtitle>
         <span onClick={() => handleClick("next")}>next</span>
       </SubtitleWrapper>
+      <Subtitle>Week {data.activeWeeks} / 12</Subtitle>
       <ExerciseWrapper>
         {data.session.map((exercise) => {
           const { set, reps, name, superset, exercises } = exercise;
