@@ -1,12 +1,14 @@
 import { styled } from "styled-components";
 import { SessionType } from "../types";
-import { getDay } from "../utils";
+import { getDay, getNextDay, getPrevDay } from "../utils";
 import { useContext, useEffect, useState } from "react";
 import { palette } from "../palette";
 import axios from "axios";
 import config from "../config";
 import { Context } from "../Context";
 import ExerciseRenderer from "../components/ExerciseRenderer";
+import NextArrow from "../assets/NextArrow";
+import BackArrow from "../assets/BackArrow";
 
 const { server } = config;
 
@@ -30,18 +32,22 @@ const Basics: React.FC = () => {
 
   const handleClick = (type: "prev" | "next") => {
     if (type === "prev") {
-      return setDayToday((prev) => prev - 1);
+      return setDayToday(getPrevDay);
     }
-    return setDayToday((prev) => prev + 1);
+    return setDayToday(getNextDay);
   };
 
   if (!data?.session)
     return (
       <MainWrapper>
         <SubtitleWrapper>
-          <span onClick={() => handleClick("prev")}>prev</span>
+          <span onClick={() => handleClick("prev")}>
+            <BackArrow />
+          </span>
           <Subtitle>{parsedToday}</Subtitle>
-          <span onClick={() => handleClick("next")}>next</span>
+          <span onClick={() => handleClick("next")}>
+            <NextArrow />
+          </span>
         </SubtitleWrapper>
         Loading...
       </MainWrapper>
@@ -51,9 +57,13 @@ const Basics: React.FC = () => {
     <MainWrapper>
       <Title>{data.name}</Title>
       <SubtitleWrapper>
-        <span onClick={() => handleClick("prev")}>prev</span>
+        <span onClick={() => handleClick("prev")}>
+          <BackArrow />
+        </span>
         <Subtitle>{parsedToday}</Subtitle>
-        <span onClick={() => handleClick("next")}>next</span>
+        <span onClick={() => handleClick("next")}>
+          <NextArrow />
+        </span>
       </SubtitleWrapper>
       <Subtitle>Week {initialData?.data?.start_date} / 12</Subtitle>
       <ExerciseRenderer session={data.session} />

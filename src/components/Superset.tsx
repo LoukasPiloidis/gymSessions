@@ -19,8 +19,8 @@ const Superset: React.FC<Props> = ({ exercises, set }) => {
     <Wrapper>
       <Sets setIsDone={setIsDone} set={set} isDone={isDone} isSuperset />
       <StyledWrapper>
-        {exercises?.map(({ name, reps }) => (
-          <Exercise name={name} reps={reps} isDone={isDone} />
+        {exercises?.map(({ name, reps }, index) => (
+          <Exercise name={name} reps={reps} isDone={isDone} key={index} />
         ))}
       </StyledWrapper>
     </Wrapper>

@@ -1,9 +1,7 @@
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Basics from "./routes/Basics.tsx";
-import Dense from "./routes/Dense.tsx";
-import Pro from "./routes/Pro.tsx";
+import Session from "./routes/Session.tsx";
 import "./styles.css";
 import Context from "./Context.tsx";
 
@@ -14,15 +12,15 @@ const router = createBrowserRouter([
   },
   {
     path: "/basics",
-    element: <Basics />,
+    element: <Session />,
   },
   {
     path: "/dense",
-    element: <Dense />,
+    element: <Session />,
   },
   {
     path: "/pro",
-    element: <Pro />,
+    element: <Session />,
   },
 ]);
 

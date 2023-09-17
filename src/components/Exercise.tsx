@@ -50,6 +50,7 @@ const Wrapper = styled.div<{ $isDone?: boolean; $hasSet?: boolean }>`
 `;
 
 const Name = styled.span`
+  min-height: 32px;
   justify-self: start;
   display: flex;
   justify-content: center;

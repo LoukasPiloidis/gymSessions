@@ -1,7 +1,7 @@
 import React, { SetStateAction } from "react";
 import styled from "styled-components";
 import { palette } from "../palette";
-import CheckMarkIcon from "../assets/checkmark";
+import CheckMarkIcon from "../assets/Checkmark";
 
 type Props = {
   set?: number;
