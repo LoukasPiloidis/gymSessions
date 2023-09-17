@@ -1,7 +1,7 @@
 import React, { SetStateAction } from "react";
 import styled from "styled-components";
 import { palette } from "../palette";
-import CheckMarkIcon from "../assets/Checkmark";
+import CheckmarkIcon from "../assets/CheckmarkIcon";
 
 type Props = {
   set?: number;
@@ -17,7 +17,7 @@ const Sets: React.FC<Props> = ({ set, setIsDone, isDone, isSuperset }) => {
       $isSuperset={isSuperset}
       $isDone={isDone}
     >
-      {isDone ? <CheckMarkIcon /> : set}
+      {isDone ? <CheckmarkIcon /> : set}
     </Wrapper>
   );
 };
