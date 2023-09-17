@@ -29,6 +29,7 @@ const ContextProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
         `${server}/24c741aa-532b-11ee-be56-0242ac120002`
       );
       setData(data);
+      console.log(data);
     };
     getData();
   }, []);
