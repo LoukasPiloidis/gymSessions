@@ -1,6 +1,6 @@
 import { palette } from "../palette";
 
-const checkmark = () => {
+const Checkmark = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -14,4 +14,4 @@ const checkmark = () => {
   );
 };
 
-export default checkmark;
+export default Checkmark;
