@@ -14,8 +14,8 @@ const Sets: React.FC<Props> = ({ set, setIsDone, isDone, isSuperset }) => {
   return (
     <Wrapper
       onClick={() => setIsDone((prev) => !prev)}
-      isSuperset={isSuperset}
-      isDone={isDone}
+      $isSuperset={isSuperset}
+      $isDone={isDone}
     >
       {isDone ? <CheckMarkIcon /> : set}
     </Wrapper>
@@ -24,7 +24,10 @@ const Sets: React.FC<Props> = ({ set, setIsDone, isDone, isSuperset }) => {
 
 export default Sets;
 
-export const Wrapper = styled.span<{ isSuperset?: boolean; isDone?: boolean }>`
+export const Wrapper = styled.span<{
+  $isSuperset?: boolean;
+  $isDone?: boolean;
+}>`
   width: 32px;
   height: 32px;
   display: flex;
@@ -34,6 +37,6 @@ export const Wrapper = styled.span<{ isSuperset?: boolean; isDone?: boolean }>`
   font-size: 20px;
   background-color: ${palette.button};
   color: ${palette.text};
-  opacity: ${({ isSuperset, isDone }) =>
-    isSuperset && isDone ? "0.5" : "auto"};
+  opacity: ${({ $isSuperset, $isDone }) =>
+    $isSuperset && $isDone ? "0.5" : "auto"};
 `;

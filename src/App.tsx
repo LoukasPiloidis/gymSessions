@@ -5,17 +5,15 @@ import { useContext, useEffect } from "react";
 import { Context } from "./Context";
 
 const App = () => {
-  const {
-    data: { currentProgram },
-  } = useContext(Context);
+  const initialData = useContext(Context);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (currentProgram) {
-      navigate(`/${currentProgram}`);
+    if (initialData?.data?.current_program) {
+      navigate(`/${initialData.data.current_program}`);
     }
-  }, [currentProgram, navigate]);
+  }, [initialData?.data?.current_program, navigate]);
 
   return (
     <Wrapper>

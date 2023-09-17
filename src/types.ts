@@ -8,6 +8,10 @@ export type ExerciseType = {
 
 export type SessionType = {
   name: string;
-  session: ExerciseType[];
+  session: ExerciseType[] | "Rest Day";
   activeWeeks: number;
+};
+
+export type ExerciseRendererProps = {
+  session: ExerciseType[] | "Rest Day";
 };

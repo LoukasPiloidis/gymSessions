@@ -19,7 +19,7 @@ const Exercise: React.FC<Props> = ({
   const [isDone, setIsDone] = useState(false);
 
   return (
-    <Wrapper isDone={isSupersetDone ?? isDone} hasSet={!!set}>
+    <Wrapper $isDone={isSupersetDone ?? isDone} $hasSet={!!set}>
       {set && <Sets setIsDone={setIsDone} set={set} isDone={isDone} />}
       <Name>{name}</Name>
       <Reps>{reps}</Reps>
@@ -29,11 +29,11 @@ const Exercise: React.FC<Props> = ({
 
 export default Exercise;
 
-const Wrapper = styled.div<{ isDone?: boolean; hasSet?: boolean }>`
+const Wrapper = styled.div<{ $isDone?: boolean; $hasSet?: boolean }>`
   padding: 12px 16px;
   display: grid;
-  grid-template-columns: ${({ hasSet }) =>
-    hasSet ? "32px auto auto" : "auto auto"};
+  grid-template-columns: ${({ $hasSet }) =>
+    $hasSet ? "32px auto auto" : "auto auto"};
   column-gap: 8px;
   margin-bottom: 4px;
   font-size: 18px;
@@ -42,8 +42,8 @@ const Wrapper = styled.div<{ isDone?: boolean; hasSet?: boolean }>`
   background-color: ${palette.background};
   color: ${palette.text};
 
-  ${({ isDone }) =>
-    isDone &&
+  ${({ $isDone }) =>
+    $isDone &&
     `
     opacity: 0.5;
   `}

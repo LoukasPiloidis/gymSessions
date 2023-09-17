@@ -1,28 +1,32 @@
 import { styled } from "styled-components";
-import Exercise from "../components/Exercise";
-import Superset from "../components/Superset";
 import { SessionType } from "../types";
 import { getDay } from "../utils";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { palette } from "../palette";
 import axios from "axios";
 import config from "../config";
+import { Context } from "../Context";
+import ExerciseRenderer from "../components/ExerciseRenderer";
 
 const { server } = config;
 
 const Basics: React.FC = () => {
+  const initialData = useContext(Context);
   const [dayToday, setDayToday] = useState(new Date().getDay());
   const [data, setData] = useState<SessionType | undefined>();
   const parsedToday = getDay(dayToday);
 
   useEffect(() => {
-    const getData = async (day: string) => {
-      const { data } = await axios.get<SessionType>(`${server}/Basics/${day}`);
-      console.log(data);
-      setData(data);
-    };
-    getData(parsedToday);
-  }, [dayToday, parsedToday]);
+    if (initialData?.data?.current_program) {
+      const getData = async (day: string) => {
+        const { data } = await axios.get<SessionType>(
+          `${server}/${initialData.data?.current_program}/${day}`
+        );
+        setData(data);
+      };
+      getData(parsedToday);
+    }
+  }, [dayToday, initialData, parsedToday]);
 
   const handleClick = (type: "prev" | "next") => {
     if (type === "prev") {
@@ -51,17 +55,8 @@ const Basics: React.FC = () => {
         <Subtitle>{parsedToday}</Subtitle>
         <span onClick={() => handleClick("next")}>next</span>
       </SubtitleWrapper>
-      <Subtitle>Week {data.activeWeeks} / 12</Subtitle>
-      <ExerciseWrapper>
-        {data.session.map((exercise) => {
-          const { set, reps, name, superset, exercises } = exercise;
-
-          if (!superset) {
-            return <Exercise set={set} name={name} reps={reps} />;
-          }
-          return <Superset exercises={exercises} set={set} />;
-        })}
-      </ExerciseWrapper>
+      <Subtitle>Week {initialData?.data?.start_date} / 12</Subtitle>
+      <ExerciseRenderer session={data.session} />
     </MainWrapper>
   );
 };
@@ -88,10 +83,4 @@ const SubtitleWrapper = styled.div`
 const Subtitle = styled.h4`
   display: flex;
   justify-content: center;
-`;
-
-const ExerciseWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
 `;

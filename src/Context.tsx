@@ -4,44 +4,28 @@ import config from "./config";
 
 const { server } = config;
 
-export type Data = {
+export type UserData = {
   id: string;
   firstName: string;
   lastName: string;
   username: string;
-  currentProgram: string;
-  startDate: Date;
+  current_program: string;
+  start_date: number;
 };
 
 type ContextShape = {
-  data: Data;
-  setData?: React.Dispatch<SetStateAction<Data>>;
+  data: UserData | null;
+  setData: React.Dispatch<SetStateAction<UserData | null>> | null;
 };
 
-export const Context = createContext<ContextShape>({
-  data: {
-    id: "24c741aa-532b-11ee-be56-0242ac120002",
-    firstName: "Loukas",
-    lastName: "Piloidis",
-    username: "piloten",
-    currentProgram: "Basics",
-    startDate: new Date(),
-  },
-});
+export const Context = createContext<ContextShape | null>(null);
 
 const ContextProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
-  const [data, setData] = useState<Data>({
-    id: "24c741aa-532b-11ee-be56-0242ac120002",
-    firstName: "Loukas",
-    lastName: "Piloidis",
-    username: "piloten",
-    currentProgram: "Basics",
-    startDate: new Date(),
-  });
+  const [data, setData] = useState<UserData | null>(null);
 
   useEffect(() => {
     const getData = async () => {
-      const { data } = await axios.get<Data>(
+      const { data } = await axios.get<UserData>(
         `${server}/24c741aa-532b-11ee-be56-0242ac120002`
       );
       setData(data);

@@ -36,6 +36,6 @@ const Wrapper = styled.div`
   gap: 8px;
 `;
 
-const StyledWrapper = styled.div<{ isDone?: boolean }>`
+const StyledWrapper = styled.div<{ $isDone?: boolean }>`
   width: calc(100% - 8px);
 `;
