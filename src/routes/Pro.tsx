@@ -1,16 +1,32 @@
 import { styled } from "styled-components";
-import Exercise from "../components/Exercise";
-import Superset from "../components/Superset";
 import { SessionType } from "../types";
-import { getDay, getRoutine } from "../utils";
-import { useState } from "react";
+import { getDay } from "../utils";
+import { useContext, useEffect, useState } from "react";
 import { palette } from "../palette";
+import axios from "axios";
+import config from "../config";
+import { Context } from "../Context";
+import ExerciseRenderer from "../components/ExerciseRenderer";
 
-const Pro = () => {
+const { server } = config;
+
+const Pro: React.FC = () => {
+  const initialData = useContext(Context);
   const [dayToday, setDayToday] = useState(new Date().getDay());
+  const [data, setData] = useState<SessionType | undefined>();
+  const parsedToday = getDay(dayToday);
 
-  const day = getDay(dayToday);
-  const routine = getRoutine(dayToday, "basics") as SessionType;
+  useEffect(() => {
+    if (initialData?.data?.current_program) {
+      const getData = async (day: string) => {
+        const { data } = await axios.get<SessionType>(
+          `${server}/${initialData.data?.current_program}/${day}`
+        );
+        setData(data);
+      };
+      getData(parsedToday);
+    }
+  }, [dayToday, initialData, parsedToday]);
 
   const handleClick = (type: "prev" | "next") => {
     if (type === "prev") {
@@ -19,28 +35,28 @@ const Pro = () => {
     return setDayToday((prev) => prev + 1);
   };
 
-  if (!routine) return <MainWrapper>Time to rest</MainWrapper>;
+  if (!data?.session)
+    return (
+      <MainWrapper>
+        <SubtitleWrapper>
+          <span onClick={() => handleClick("prev")}>prev</span>
+          <Subtitle>{parsedToday}</Subtitle>
+          <span onClick={() => handleClick("next")}>next</span>
+        </SubtitleWrapper>
+        Time to rest
+      </MainWrapper>
+    );
 
   return (
     <MainWrapper>
-      <Title>{routine.name}</Title>
+      <Title>{data.name}</Title>
       <SubtitleWrapper>
         <span onClick={() => handleClick("prev")}>prev</span>
-        <Subtitle>{day}</Subtitle>
+        <Subtitle>{parsedToday}</Subtitle>
         <span onClick={() => handleClick("next")}>next</span>
       </SubtitleWrapper>
-      <TableTitle>
-        <span>Sets</span>
-        <span>Exercise</span>
-        <span>Reps</span>
-      </TableTitle>
-      {routine.session.map((exercise) => {
-        const { set, reps, name, superset, exercises } = exercise;
-        if (!superset) {
-          return <Exercise set={set} name={name} reps={reps} />;
-        }
-        return <Superset exercises={exercises} set={set} />;
-      })}
+      <Subtitle>Week {initialData?.data?.start_date} / 12</Subtitle>
+      <ExerciseRenderer session={data.session} />
     </MainWrapper>
   );
 };
@@ -67,10 +83,4 @@ const SubtitleWrapper = styled.div`
 const Subtitle = styled.h4`
   display: flex;
   justify-content: center;
-`;
-
-const TableTitle = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 12px;
 `;
