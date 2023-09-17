@@ -43,7 +43,7 @@ const Basics: React.FC = () => {
           <Subtitle>{parsedToday}</Subtitle>
           <span onClick={() => handleClick("next")}>next</span>
         </SubtitleWrapper>
-        Time to rest
+        Loading
       </MainWrapper>
     );
 
