@@ -21,7 +21,9 @@ const Basics: React.FC = () => {
   useEffect(() => {
     if (initialData?.data?.current_program) {
       const getData = async (day: string) => {
-        const { data } = await axios.get<SessionType>(`${server}/dense/${day}`);
+        const { data } = await axios.get<SessionType>(
+          `${server}/${initialData?.data?.current_program}/${day}`
+        );
         setData(data);
       };
       getData(parsedToday);
