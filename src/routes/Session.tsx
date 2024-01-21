@@ -19,16 +19,12 @@ const Basics: React.FC = () => {
   const parsedToday = getDay(dayToday);
 
   useEffect(() => {
-    if (initialData?.data?.current_program) {
-      const getData = async (day: string) => {
-        const { data } = await axios.get<SessionType>(
-          `${server}/${initialData?.data?.current_program}/${day}`
-        );
-        setData(data);
-      };
-      getData(parsedToday);
-    }
-  }, [dayToday, initialData, parsedToday]);
+    const getData = async (day: string) => {
+      const { data } = await axios.get<SessionType>(`${server}/basics/${day}`);
+      setData(data);
+    };
+    getData(parsedToday);
+  }, [dayToday, parsedToday]);
 
   const handleClick = (type: "prev" | "next") => {
     if (type === "prev") {
