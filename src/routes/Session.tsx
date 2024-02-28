@@ -20,7 +20,7 @@ const Basics: React.FC = () => {
 
   useEffect(() => {
     const getData = async (day: string) => {
-      const { data } = await axios.get<SessionType>(`${server}/basics/${day}`);
+      const { data } = await axios.get<SessionType>(`${server}/dense/${day}`);
       setData(data);
     };
     getData(parsedToday);
